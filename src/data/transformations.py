@@ -39,20 +39,6 @@ def re_normalize(inp: np.ndarray, low: int = 0, high: int = 255):
     return inp_out
 
 
-def random_flip(inp: np.ndarray, tar: np.ndarray, ndim_spatial: int):
-    flip_dims = [np.random.randint(low=0, high=2) for _ in range(ndim_spatial)]
-
-    flip_dims_inp = tuple(
-        [i + 1 for i, element in enumerate(flip_dims) if element == 1]
-    )
-    flip_dims_tar = tuple([i for i, element in enumerate(flip_dims) if element == 1])
-
-    inp_flipped = np.flip(inp, axis=flip_dims_inp)
-    tar_flipped = np.flip(tar, axis=flip_dims_tar)
-
-    return inp_flipped, tar_flipped
-
-
 class Repr:
     """Evaluable string representation of an object"""
 
@@ -120,55 +106,3 @@ class ComposeSingle(Compose):
         for t in self.transforms:
             inp = t(inp)
         return inp
-
-
-class AlbuSeg2d(Repr):
-    """
-    Wrapper for albumentations' segmentation-compatible 2D augmentations.
-    Wraps an augmentation, so it can be used within the provided transform pipeline.
-    See https://github.com/albu/albumentations for more information.
-    Expected input: (C, spatial_dims)
-    Expected target: (spatial_dims) -> No (C)hannel dimension
-    """
-
-    def __init__(self, albumentation: Callable):
-        self.albumentation = albumentation
-
-    def __call__(self, inp: np.ndarray, tar: np.ndarray):
-        # input, target
-        out_dict = self.albumentation(image=inp, mask=tar)
-        input_out = out_dict["image"]
-        target_out = out_dict["mask"]
-
-        return input_out, target_out
-
-class RandomFlip(Repr):
-    """
-    Randomly flips spatial input and target dimensions respectively. Spatial
-    dimensions are considered to occur last in the input/target shape and are
-    flipped with probability p=0.5 (iid).
-    Works for 2D and 3D image-target pairs.
-    Expected input: (C, spatial_dims)
-    Expected target: (spatial_dims) -> No (C)hannel dimension
-    Args:
-        ndim_spatial: Number of spatial dimension in input, e.g.
-        ndim_spatial=2 for input shape (C, H, W)
-        ndim_spatial=3 for input shape (C, D, H, W)
-    """
-
-    def __init__(self, ndim_spatial):
-        self.ndim_spatial = ndim_spatial
-
-    def __call__(self, inp, target):
-        flip_dims = [np.random.randint(low=0, high=2) for _ in range(self.ndim_spatial)]
-
-        flip_dims_inp = tuple(
-            [i + 1 for i, element in enumerate(flip_dims) if element == 1]
-        )
-        flip_dims_target = tuple(
-            [i for i, element in enumerate(flip_dims) if element == 1]
-        )
-
-        inp_flip = np.flip(inp, axis=flip_dims_inp)
-        target_flip = np.flip(target, axis=flip_dims_target)
-        return np.copy(inp_flip), np.copy(target_flip)

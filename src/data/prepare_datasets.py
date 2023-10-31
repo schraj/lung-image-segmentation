@@ -1,4 +1,3 @@
-import os
 import numpy as np
 from sklearn.model_selection import train_test_split
 from torch.utils.data import DataLoader
@@ -15,9 +14,11 @@ from src.data.transformations import (
 train_size = 0.8
 random_seed = 42
 
-
 class DatasetPreparer():
     def __init__(self):
+        pass
+    def prepare_training_dataloaders(self):
+    
       self.transforms_training = ComposeDouble(
             [
                 FunctionWrapperDouble(
@@ -81,3 +82,31 @@ class DatasetPreparer():
       self.dataloader_training = DataLoader(dataset=self.dataset_train, batch_size=2, shuffle=True)
 
       self.dataloader_validation = DataLoader(dataset=self.dataset_valid, batch_size=2, shuffle=True)
+
+    def prepare_test_dataloader(self, inputs, targets):
+        transforms_test = ComposeDouble(
+            [
+                FunctionWrapperDouble(
+                    resize, input=True, target=False, output_shape=(512, 512, 3)
+                ),
+                FunctionWrapperDouble(
+                    resize,
+                    input=False,
+                    target=True,
+                    output_shape=(512, 512),
+                    order=0,
+                    anti_aliasing=False,
+                    preserve_range=True,
+                ),
+                FunctionWrapperDouble(
+                    np.moveaxis, input=True, target=False, source=-1, destination=0
+                ),
+                FunctionWrapperDouble(normalize_01),
+            ]
+        )
+
+        dataset = SegmentationDataSet(
+            inputs=inputs, targets=targets, transform=transforms_test
+        )
+
+        return DataLoader(dataset=dataset, batch_size=1, shuffle=False)

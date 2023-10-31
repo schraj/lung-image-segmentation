@@ -34,7 +34,7 @@ class DataPreparer():
       montgomery_test = montgomery_left_mask_dir[0:2]
       montgomery_train= montgomery_left_mask_dir[2:5]
 
-      for left_image_file in montgomery_left_mask_dir:
+      for left_image_file in montgomery_left_mask_dir[:5]:
           base_file = os.path.basename(left_image_file)
           image_file = os.path.join(c.MONTGOMERY_IMAGE_DIR, base_file)
           right_image_file = os.path.join(c.MONTGOMERY_RIGHT_MASK_DIR, base_file)
@@ -62,10 +62,10 @@ class DataPreparer():
         
     def prepare_shenzhen_data(self):
       shenzhen_mask_dir = glob(os.path.join(c.SHENZHEN_MASK_DIR, '*.png'))
-      shenzhen_test = shenzhen_mask_dir[0:5]
-      shenzhen_train= shenzhen_mask_dir[5:20]
+      shenzhen_test = shenzhen_mask_dir[0:2]
+      shenzhen_train= shenzhen_mask_dir[2:5]
 
-      for mask_file in shenzhen_mask_dir[0:20]:
+      for mask_file in shenzhen_mask_dir[:5]:
           base_file = os.path.basename(mask_file).replace("_mask", "")
           image_file = os.path.join(c.SHENZHEN_IMAGE_DIR, base_file)
 

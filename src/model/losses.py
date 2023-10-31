@@ -50,23 +50,6 @@ def dice_loss(
     smooth: float = 0.0,
 ):
     typed_target = target.to(probs.dtype)
-
-    # tsh, psh = target.shape, probs.shape
-
-    # if tsh == psh:  # Already one-hot
-    #     onehot_target = target.to(probs.dtype)
-    # elif (
-    #     tsh[0] == psh[0] and tsh[1:] == psh[2:]
-    # ):  # Assume dense target storage, convert to one-hot
-    #     onehot_target = torch.zeros_like(probs)
-    #     onehot_target = onehot_target.type(torch.int64)
-    #     unsqueezed_target = target.unsqueeze(1)
-    #     onehot_target.scatter_(1, unsqueezed_target, 1)
-    # else:
-    #     raise ValueError(
-    #         f"Target shape {target.shape} is not compatible with output shape {probs.shape}."
-    #     )
-
     intersection = probs * typed_target  # (N, C, ...)
     numerator = 2 * _channelwise_sum(intersection) + smooth  # (C,)
     denominator = probs + typed_target  # (N, C, ...)

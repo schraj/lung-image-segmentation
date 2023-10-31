@@ -1,11 +1,13 @@
 import os
 import torch
+from torchinfo import summary
+import numpy as np
 from glob import glob
 import src.data.constants as c
 from src.data.prepare_data import DataPreparer
 from src.data.prepare_datasets import DatasetPreparer
 from src.model.unet import UNet
-from src.model.losses import DiceLoss
+from src.model.losses import DiceLoss, dice_loss
 from src.model_api.trainer import Trainer
 from src.model_api.inferencer import Inferencer
 from src.model.lifecycle import ModelLifecycle
@@ -25,7 +27,10 @@ class Processor:
             conv_mode="same",
             dim=2,
         ).to(self.device)
-    
+    def summarize(self):
+        # TODO - get size from input params
+        summary(self.model, input_size=(2, 3, 512, 512))
+
     def run_training(self, update_data = True):
         if (update_data): 
             data_preparer = DataPreparer()
@@ -64,12 +69,15 @@ class Processor:
         print('training_losses', training_losses)
         print('validation_losses', validation_losses)
 
-    def run_inference(self):
+    def run_test_phase(self):
         inputs, targets = get_test_inputs_and_targets()
         dataset_preparer = DatasetPreparer()
         dataloader = dataset_preparer.prepare_test_dataloader(inputs, targets)
 
         inferencer = Inferencer(self.model, self.device)
+        test_losses = []
         for input, target in dataloader:
             result = inferencer.predict(input)    
-            print(result.shape)
+            test_losses.append(dice_loss(result, target))
+        test_loss = np.mean(np.array(test_losses))
+        print('test_loss', test_loss)

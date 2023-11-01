@@ -51,8 +51,15 @@ conda install -c conda-forge pytorch-model-summary
 # 5. Test
 1. Inferencer class implements the test phase
 
-# 5. Learning
+# 5. Deployment through AWS
+
+(uploading data to s3)[https://medium.com/@antonysruthy11/loading-kaggle-dataset-to-aws-s3-using-boto3-50af3e015fb2]
+
+(also uploading to s3)[https://siddiqss.medium.com/how-to-extract-a-large-dataset-from-zip-file-on-aws-s3-easy-way-dc5aefb0257]
+
+# Finally. Learning
 1. The data/image manipulation had a higher learning curve than expected.  Mixing image libraries led to unexpected formatting and some learning.
+1. Best way to train/deploy model with large dataset
 1. Interactions between jupyter notebook and code modules
 -- Auto reload of changes within your modules can be enabled with this
 

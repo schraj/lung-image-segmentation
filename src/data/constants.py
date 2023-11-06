@@ -1,6 +1,6 @@
 import os
 
-INPUT_DIR = os.path.join("./", "kaggle/input")
+INPUT_DIR = os.path.join("/kaggle/input")
 SEGMENTATION_SOURCE_DIR = os.path.join(INPUT_DIR, "pulmonary-chest-xray-abnormalities")
 SHENZHEN_TRAIN_INTER_DIR = os.path.join(SEGMENTATION_SOURCE_DIR, "ChinaSet_AllFiles")
 SHENZHEN_TRAIN_DIR = os.path.join(SEGMENTATION_SOURCE_DIR, "ChinaSet_AllFiles","ChinaSet_AllFiles")
@@ -15,7 +15,7 @@ MONTGOMERY_MASK_DIR = os.path.join(MONTGOMERY_TRAIN_DIR,"ManualMask")
 MONTGOMERY_LEFT_MASK_DIR = os.path.join(MONTGOMERY_TRAIN_DIR,"ManualMask", "leftMask")
 MONTGOMERY_RIGHT_MASK_DIR = os.path.join(MONTGOMERY_TRAIN_DIR, "ManualMask", "rightMask")
 
-SEGMENTATION_DIR = os.path.join("./", "kaggle/working/lung-image-segmentation/segmentation")
+SEGMENTATION_DIR = os.path.join("/kaggle/working/lung-image-segmentation/segmentation")
 SEGMENTATION_TEST_DIR = os.path.join(SEGMENTATION_DIR, "test")
 SEGMENTATION_TRAIN_DIR = os.path.join(SEGMENTATION_DIR, "train")
 SEGMENTATION_IMAGE_DIR = os.path.join(SEGMENTATION_TRAIN_DIR, "image")

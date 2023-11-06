@@ -1,3 +1,5 @@
+https://www.kaggle.com/code/faressayah/chest-x-ray-medical-diagnosis-with-cnn-densenet/comments
+
 # 1. Overview
 This repository is an exercise in image segmentation using lung images as the dataset. 
 

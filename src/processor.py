@@ -57,7 +57,7 @@ class Processor:
             training_dataloader=dataset_preparer.dataloader_training,
             validation_dataloader=dataset_preparer.dataloader_validation,
             lr_scheduler=None,
-            epochs=2,
+            epochs=10,
             epoch=0,
         )
 

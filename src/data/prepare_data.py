@@ -15,8 +15,8 @@ class DataPreparer():
         pass
     
     def prepare_data(self):
-       self.reset_data()
-       print('data reset')
+       # self.reset_data()
+       # print('data reset')
        self.prepare_montgomery_data()
        print('montgomery data prepared')
        self.prepare_shenzhen_data()

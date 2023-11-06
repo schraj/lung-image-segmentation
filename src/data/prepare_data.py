@@ -1,4 +1,5 @@
 import os
+import shutil
 import numpy as np
 from glob import glob
 from torchvision.io import read_image, ImageReadMode
@@ -24,8 +25,7 @@ class DataPreparer():
     def reset_data(self):
         for dir in [c.SEGMENTATION_DIR, c.SEGMENTATION_TRAIN_DIR, c.SEGMENTATION_TEST_DIR, c.SEGMENTATION_IMAGE_DIR, c.SEGMENTATION_MASK_DIR]:
             if os.path.exists(dir):
-                for file in glob(os.path.join(dir, "*")):
-                    os.remove(file)
+                shutil.rmtree(dir)
             else:
                 os.mkdir(dir)
 

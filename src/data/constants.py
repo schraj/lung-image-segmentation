@@ -1,6 +1,6 @@
 import os
 
-INPUT_DIR = os.path.join("./", "download")
+INPUT_DIR = os.path.join("./", "kaggle/input")
 SEGMENTATION_SOURCE_DIR = os.path.join(INPUT_DIR, "pulmonary-chest-xray-abnormalities")
 SHENZHEN_TRAIN_INTER_DIR = os.path.join(SEGMENTATION_SOURCE_DIR, "ChinaSet_AllFiles")
 SHENZHEN_TRAIN_DIR = os.path.join(SEGMENTATION_SOURCE_DIR, "ChinaSet_AllFiles","ChinaSet_AllFiles")

@@ -43,7 +43,7 @@ class Processor:
         print(len(train_files), len(test_files), len(mask_files))
 
         dataset_preparer = DatasetPreparer()
-        dataset_preparer.prepare_datasets()
+        dataset_preparer.prepare_training_dataloaders()
 
         # criterion = torch.nn.CrossEntropyLoss()
         criterion = DiceLoss()
@@ -64,7 +64,7 @@ class Processor:
         training_losses, validation_losses, lr_rates = trainer.run_trainer()
 
         model_lifecycle = ModelLifecycle(self.model)
-        model_lifecycle.save_model(self.model)
+        model_lifecycle.save_model()
 
         print('training_losses', training_losses)
         print('validation_losses', validation_losses)

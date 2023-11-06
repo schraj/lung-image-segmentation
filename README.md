@@ -53,11 +53,32 @@ conda install -c conda-forge pytorch-model-summary
 # 5. Test
 1. Inferencer class implements the test phase
 
-# 5. Deployment through AWS
+# 6. Deployment
+
+## Kaggle
+
+1. Link github repo to kaggle and it appears in `/kaggle/working`.
+2. Add it to the path and then can use it as a custom library from your notebook
+
+## AWS
 
 (uploading data to s3)[https://medium.com/@antonysruthy11/loading-kaggle-dataset-to-aws-s3-using-boto3-50af3e015fb2]
 
 (also uploading to s3)[https://siddiqss.medium.com/how-to-extract-a-large-dataset-from-zip-file-on-aws-s3-easy-way-dc5aefb0257]
+
+# Performance
+
+On Kaggle, using 2 GPUs
+- Loading/Processing images: 15 minutes
+- 10 epochs: 20 minutes
+Results
+```
+training_losses [0.6652035884192733, 0.6509182081847894, 0.6354550338182293, 0.6236948776440542, 0.6089722454303601, 0.5792451739066937, 0.5660596698766849, 0.5619621642056059, 0.557032078260281, 0.5573165591378682]
+validation_losses [0.6562871727787081, 0.6357339552191438, 0.6304532914865212, 0.6275744936505302, 0.6001597838323625, 0.603246518822967, 0.7066250980877485, 0.6019600405067694, 0.5987570065943921, 0.5780486689239251]
+```
+
+
+
 
 # Finally. Learning
 1. The data/image manipulation had a higher learning curve than expected.  Mixing image libraries led to unexpected formatting and some learning.
